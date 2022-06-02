@@ -49,7 +49,7 @@ function playRound(playerSelection, computerSelection) {
     }
     return winMessage;
 }
-
+/*
 function game() {
     for (let i = 0; i < 5; i++) {
         let play = console.log(playRound(prompt("Please choose rock, paper, or scissors"), computerPlay()))
@@ -67,3 +67,44 @@ function game() {
 }
 
 game();
+*/
+
+
+const buttons = document.querySelectorAll("button");
+let results = document.querySelector(".results");
+let p = document.createElement("p");
+
+let pscore = document.querySelector(".pscore");
+let cscore = document.querySelector(".cscore");
+let playerScore;
+let computerScore;
+
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        p.textContent = playRound(button.textContent, computerPlay());
+        updatePScore();
+        updateCScore();
+        if (playerWins === 5 ) {
+            p.textContent = "Congratulations! You won!";
+            buttons.forEach((button) => {
+                button.disabled = true;
+            });
+        }
+        else if (computerWins === 5) {
+            p.textContent = "You Lost! Better luck next time!"
+            buttons.forEach((button) => {
+                button.disabled = true;
+            });
+        }
+        else {results.appendChild(p);}
+    });
+});
+
+function updatePScore() {
+    pscore.textContent = "Player Score: " + playerWins;
+}
+
+function updateCScore() {
+    cscore.textContent = "Computer Score: " + computerWins;
+}
